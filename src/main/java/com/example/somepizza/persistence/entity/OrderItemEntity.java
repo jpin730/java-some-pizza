@@ -26,4 +26,13 @@ public class OrderItemEntity {
 
     @Column(nullable = false, columnDefinition = "DECIMAL(5,2)")
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "orderId", insertable = false, updatable = false)
+    private OrderEntity order;
+
+
+    @OneToOne
+    @JoinColumn(name = "pizzaId", insertable = false, updatable = false)
+    private PizzaEntity pizza;
 }

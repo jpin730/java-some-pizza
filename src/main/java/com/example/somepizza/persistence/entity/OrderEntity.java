@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizza_order")
@@ -31,4 +32,11 @@ public class OrderEntity {
 
     @Column(length = 200)
     private String comments;
+
+    @ManyToOne
+    @JoinColumn(name = "customerId", insertable = false, updatable = false)
+    private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItemEntity> items;
 }
