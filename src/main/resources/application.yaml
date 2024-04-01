@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: some-pizza
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
