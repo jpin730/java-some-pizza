@@ -6,7 +6,5 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface PizzaRepository extends ListCrudRepository<PizzaEntity, Integer> {
-    List<PizzaEntity> findAllByAvailableTrueOrderByPriceAsc();
-
-    List<PizzaEntity> findAllByAvailableTrueAndNameIgnoreCaseContaining(String name);
+    List<PizzaEntity> findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String name, String description);
 }

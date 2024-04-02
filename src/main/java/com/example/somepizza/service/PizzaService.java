@@ -20,12 +20,9 @@ public class PizzaService {
         return pizzaRepository.findAll();
     }
 
-    public List<PizzaEntity> getAllAvailable() {
-        return pizzaRepository.findAllByAvailableTrueOrderByPriceAsc();
-    }
 
-    public List<PizzaEntity> getByName(String name) {
-        return pizzaRepository.findAllByAvailableTrueAndNameIgnoreCaseContaining(name);
+    public List<PizzaEntity> getByQuery(String query) {
+        return pizzaRepository.findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
     }
 
     public PizzaEntity getById(Integer id) {

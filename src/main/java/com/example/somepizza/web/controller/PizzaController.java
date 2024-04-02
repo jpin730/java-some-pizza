@@ -20,14 +20,10 @@ public class PizzaController {
 
     @GetMapping
     public ResponseEntity<List<PizzaEntity>> getAll(
-            @RequestParam(required = false, defaultValue = "false") boolean available,
-            @RequestParam(required = false, defaultValue = "") String name
+            @RequestParam(required = false, defaultValue = "") String query
     ) {
-        if (available) {
-            return ResponseEntity.ok(this.pizzaService.getAllAvailable());
-        }
-        if (!name.isEmpty()) {
-            return ResponseEntity.ok(this.pizzaService.getByName(name));
+        if (!query.isEmpty()) {
+            return ResponseEntity.ok(this.pizzaService.getByQuery(query));
         }
         return ResponseEntity.ok(this.pizzaService.getAll());
     }
