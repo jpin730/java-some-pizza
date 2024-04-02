@@ -3,10 +3,12 @@ package com.example.somepizza.web.controller;
 import com.example.somepizza.persistence.entity.PizzaEntity;
 import com.example.somepizza.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/pizzas")
@@ -19,13 +21,19 @@ public class PizzaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PizzaEntity>> getAll(
-            @RequestParam(required = false, defaultValue = "") String query
+    public ResponseEntity<Page<PizzaEntity>> getAll(
+            @RequestParam(required = false, defaultValue = "") String query,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "4") Integer size,
+            @RequestParam(required = false, defaultValue = "id") String sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String direction
     ) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
         if (!query.isEmpty()) {
-            return ResponseEntity.ok(this.pizzaService.getByQuery(query));
+            return ResponseEntity.ok(this.pizzaService.getByQuery(query, pageable));
         }
-        return ResponseEntity.ok(this.pizzaService.getAll());
+        return ResponseEntity.ok(this.pizzaService.getAll(pageable));
     }
 
     @GetMapping("/{id}")

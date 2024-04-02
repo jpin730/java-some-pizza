@@ -1,28 +1,31 @@
 package com.example.somepizza.service;
 
 import com.example.somepizza.persistence.entity.PizzaEntity;
+import com.example.somepizza.persistence.repository.PizzaPagSortRepository;
 import com.example.somepizza.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PizzaService {
     private final PizzaRepository pizzaRepository;
+    private final PizzaPagSortRepository pizzaPagSortRepository;
 
     @Autowired
-    public PizzaService(PizzaRepository pizzaRepository) {
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
         this.pizzaRepository = pizzaRepository;
+        this.pizzaPagSortRepository = pizzaPagSortRepository;
     }
 
-    public List<PizzaEntity> getAll() {
-        return pizzaRepository.findAll();
+    public Page<PizzaEntity> getAll(Pageable pageable) {
+        return pizzaPagSortRepository.findAll(pageable);
     }
 
 
-    public List<PizzaEntity> getByQuery(String query) {
-        return pizzaRepository.findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
+    public Page<PizzaEntity> getByQuery(String query, Pageable pageable) {
+        return pizzaPagSortRepository.findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(pageable, query, query);
     }
 
     public PizzaEntity getById(Integer id) {
