@@ -26,4 +26,8 @@ public class OrderService {
         LocalDateTime today = LocalDate.now().atTime(0, 0);
         return this.orderRepository.findAllByDateAfterOrderByIdAsc(today);
     }
+
+    public List<OrderEntity> getByCustomerId(String id) {
+        return this.orderRepository.findByCustomerId(id);
+    }
 }
