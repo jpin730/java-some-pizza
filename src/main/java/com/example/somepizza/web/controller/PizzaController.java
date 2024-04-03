@@ -3,6 +3,7 @@ package com.example.somepizza.web.controller;
 import com.example.somepizza.persistence.entity.PizzaEntity;
 import com.example.somepizza.service.PizzaService;
 import com.example.somepizza.service.dto.UpdatePizzaPriceDto;
+import com.example.somepizza.service.exception.EmailApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -70,7 +71,11 @@ public class PizzaController {
         if (!this.pizzaService.existsById(dto.getId())) {
             return ResponseEntity.notFound().build();
         }
-        this.pizzaService.updatePriceById(dto);
+        try {
+            this.pizzaService.updatePriceById(dto);
+        } catch (EmailApiException e) {
+            return ResponseEntity.ok().build();
+        }
         return ResponseEntity.ok().build();
     }
 

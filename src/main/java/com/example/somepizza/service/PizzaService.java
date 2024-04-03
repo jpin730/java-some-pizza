@@ -4,6 +4,7 @@ import com.example.somepizza.persistence.entity.PizzaEntity;
 import com.example.somepizza.persistence.repository.PizzaPagSortRepository;
 import com.example.somepizza.persistence.repository.PizzaRepository;
 import com.example.somepizza.service.dto.UpdatePizzaPriceDto;
+import com.example.somepizza.service.exception.EmailApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,8 +47,13 @@ public class PizzaService {
         return pizzaRepository.existsById(id);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = EmailApiException.class)
     public void updatePriceById(UpdatePizzaPriceDto dto) {
         pizzaRepository.updatePriceById(dto);
+        sendEmail();
+    }
+
+    private void sendEmail() {
+        throw new EmailApiException();
     }
 }
