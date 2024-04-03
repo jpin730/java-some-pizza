@@ -1,6 +1,7 @@
 package com.example.somepizza.service;
 
 import com.example.somepizza.persistence.entity.OrderEntity;
+import com.example.somepizza.persistence.projection.OrderSummary;
 import com.example.somepizza.persistence.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,9 @@ public class OrderService {
 
     public List<OrderEntity> getByCustomerId(String id) {
         return this.orderRepository.findByCustomerId(id);
+    }
+
+    public OrderSummary getOrderSummaryById(Integer orderId) {
+        return this.orderRepository.getOrderSummaryById(orderId);
     }
 }
