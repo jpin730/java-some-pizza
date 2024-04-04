@@ -4,6 +4,8 @@ TRUNCATE `db`.`order_item`;
 TRUNCATE `db`.`pizza_order`;
 TRUNCATE `db`.`customer`;
 TRUNCATE `db`.`pizza`;
+TRUNCATE `db`.`user`;
+TRUNCATE `db`.`user_role`;
 SET FOREIGN_KEY_CHECKS = 1;
 -- INSERT CUSTOMERS
 INSERT INTO `db`.`customer` (
@@ -304,3 +306,41 @@ VALUES (1, 1, 1, 1, 23.0),
     (5, 1, 10, 0.5, 11.0),
     (5, 2, 12, 0.5, 9.5),
     (6, 1, 11, 1, 23);
+-- INSERT USERS
+INSERT INTO `db`.`user` (
+        `username`,
+        `password`,
+        `email`,
+        `disabled`,
+        `locked`
+    )
+VALUES (
+        "admin",
+        "$2a$12$q69g0DvKiLLWLoYp91CeDOw7Ct.wKLYPPrPz6LIQwgqxnDphvGmSy",
+        "admin@email.com",
+        0,
+        0
+    ),
+    (
+        "customer",
+        "$2a$12$FS8IRbnPBXHSkf30t7fFHeqw7DgYLw2VBmKdEdHTJYXsKT.0uC7fG",
+        "customer@email.com",
+        0,
+        0
+    );
+-- INSERT USER ROLES
+INSERT INTO `db`.`user_role` (
+        `username`,
+        `role`,
+        `granted_date`
+    )
+VALUES (
+        "admin",
+        "ADMIN",
+        NOW()
+    ),
+    (
+        "customer",
+        "CUSTOMER",
+        NOW()
+    );
