@@ -3,6 +3,7 @@ package com.example.somepizza.web.controller;
 import com.example.somepizza.persistence.entity.OrderEntity;
 import com.example.somepizza.persistence.projection.OrderSummary;
 import com.example.somepizza.service.OrderService;
+import com.example.somepizza.service.dto.RandomOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,11 @@ public class OrderController {
     @GetMapping("/summary/{orderId}")
     public ResponseEntity<OrderSummary> getOrderSummaryById(@PathVariable Integer orderId) {
         return ResponseEntity.ok(this.orderService.getOrderSummaryById(orderId));
+    }
+
+    @PostMapping("/random")
+    public ResponseEntity<Void> saveRandomOrder(@RequestBody RandomOrderDto dto) {
+        Boolean result = this.orderService.saveRandomOrder(dto);
+        return result ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 }
