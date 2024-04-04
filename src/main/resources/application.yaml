@@ -9,7 +9,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+  security:
+    user:
+      name: user
+      password: password
 server:
   servlet:
     context-path: /api
+
+
+logging:
+  level:
+    org.springframework.security.web.*: DEBUG
