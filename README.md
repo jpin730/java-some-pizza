@@ -1,6 +1,6 @@
 # Java Some Pizza
 
-This is a simple Java application that simulates a pizza ordering system. It uses JPA and Hibernate to interact with a MySQL database.
+This application simulates a pizza ordering system. It uses Java Spring JPA (MySQL) and Java Spring Security.
 
 ## Prepare database
 
